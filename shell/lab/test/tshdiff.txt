@@ -1,0 +1,602 @@
+15c15
+< [1] (6881) ./myspin 1 &
+---
+> [1] (6877) ./myspin 1 &
+20c20
+< [1] (6892) ./myspin 2 &
+---
+> [1] (6885) ./myspin 2 &
+22c22
+< [2] (6894) ./myspin 3 &
+---
+> [2] (6887) ./myspin 3 &
+24,25c24,25
+< [1] (6892) Running ./myspin 2 &
+< [2] (6894) Running ./myspin 3 &
+---
+> [1] (6885) Running ./myspin 2 &
+> [2] (6887) Running ./myspin 3 &
+30c30
+< Job [1] (6906) terminated by signal 2
+---
+> Job [1] (6902) terminated by signal 2
+35c35
+< [1] (6917) ./myspin 4 &
+---
+> [1] (6910) ./myspin 4 &
+37c37
+< Job [2] (6919) terminated by signal 2
+---
+> Job [2] (6912) terminated by signal 2
+39c39
+< [1] (6917) Running ./myspin 4 &
+---
+> [1] (6910) Running ./myspin 4 &
+44c44
+< [1] (6931) ./myspin 4 &
+---
+> [1] (6924) ./myspin 4 &
+46c46
+< Job [2] (6933) stopped by signal 20
+---
+> Job [2] (6926) stopped by signal 20
+48,49c48,49
+< [1] (6931) Running ./myspin 4 &
+< [2] (6933) Stopped ./myspin 5 
+---
+> [1] (6924) Running ./myspin 4 &
+> [2] (6926) Stopped ./myspin 5 
+54c54
+< [1] (6948) ./myspin 4 &
+---
+> [1] (6939) ./myspin 4 &
+56c56
+< Job [2] (6950) stopped by signal 20
+---
+> Job [2] (6941) stopped by signal 20
+58,59c58,59
+< [1] (6948) Running ./myspin 4 &
+< [2] (6950) Stopped ./myspin 5 
+---
+> [1] (6939) Running ./myspin 4 &
+> [2] (6941) Stopped ./myspin 5 
+61c61
+< [2] (6950) ./myspin 5 
+---
+> [2] (6941) ./myspin 5 
+63,64c63,64
+< [1] (6948) Running ./myspin 4 &
+< [2] (6950) Running ./myspin 5 
+---
+> [1] (6939) Running ./myspin 4 &
+> [2] (6941) Running ./myspin 5 
+69c69
+< [1] (6965) ./myspin 4 &
+---
+> [1] (6957) ./myspin 4 &
+71c71
+< Job [1] (6965) stopped by signal 20
+---
+> Job [1] (6957) stopped by signal 20
+73c73
+< [1] (6965) Stopped ./myspin 4 &
+---
+> [1] (6957) Stopped ./myspin 4 &
+80c80
+< Job [1] (6980) terminated by signal 2
+---
+> Job [1] (6973) terminated by signal 2
+89,91c89,91
+<  6977 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace11.txt -s ./tshref -a -p
+<  6978 pts/2    S+     0:00 ./tshref -p
+<  6983 pts/2    R      0:00 /bin/ps a
+---
+>  6970 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace11.txt -s ./tsh -a -p
+>  6971 pts/2    S+     0:00 ./tsh -p
+>  6976 pts/2    R      0:00 /bin/ps a
+95c95
+< 15060 pts/2    R    766:48 ./shell/tsh -p
+---
+> 15060 pts/2    R    766:47 ./shell/tsh -p
+115c115
+< 19002 pts/2    R    398:17 ./shell/tsh -p
+---
+> 19002 pts/2    R    398:16 ./shell/tsh -p
+119c119
+< 19109 pts/2    R    387:07 ./shell/tsh -p
+---
+> 19109 pts/2    R    387:06 ./shell/tsh -p
+125c125
+< 19183 pts/2    R    386:29 ./shell/tsh -p
+---
+> 19183 pts/2    R    386:28 ./shell/tsh -p
+141c141
+< 26801 pts/2    R    184:23 ./tsh -p
+---
+> 26801 pts/2    R    184:22 ./tsh -p
+143c143
+< 26813 pts/2    R    185:48 ./tsh -p
+---
+> 26813 pts/2    R    185:47 ./tsh -p
+151c151
+< 26921 pts/2    R    184:01 ./tsh -p
+---
+> 26921 pts/2    R    184:00 ./tsh -p
+155c155
+< 27032 pts/2    R    180:31 ./tsh -p
+---
+> 27032 pts/2    R    180:30 ./tsh -p
+157c157
+< 27070 pts/2    R    182:42 ./tsh -p
+---
+> 27070 pts/2    R    182:41 ./tsh -p
+163c163
+< 27585 pts/2    R    156:28 ./tsh -p
+---
+> 27585 pts/2    R    156:27 ./tsh -p
+171c171
+< 27859 pts/2    R    159:23 ./tsh -p
+---
+> 27859 pts/2    R    159:22 ./tsh -p
+176,177c176,177
+< 28009 pts/2    R    156:58 ./tsh -p
+< 28036 pts/2    R    149:55 ./tsh -p
+---
+> 28009 pts/2    R    156:57 ./tsh -p
+> 28036 pts/2    R    149:54 ./tsh -p
+182c182
+< 28085 pts/2    R    157:25 ./tsh -p
+---
+> 28085 pts/2    R    157:24 ./tsh -p
+198c198
+< Job [1] (6995) stopped by signal 20
+---
+> Job [1] (6987) stopped by signal 20
+200c200
+< [1] (6995) Stopped ./mysplit 4 
+---
+> [1] (6987) Stopped ./mysplit 4 
+209,213c209,213
+<  6992 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace12.txt -s ./tshref -a -p
+<  6993 pts/2    S+     0:00 ./tshref -p
+<  6995 pts/2    T      0:00 ./mysplit 4
+<  6996 pts/2    T      0:00 ./mysplit 4
+<  6999 pts/2    R      0:00 /bin/ps a
+---
+>  6984 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace12.txt -s ./tsh -a -p
+>  6985 pts/2    S+     0:00 ./tsh -p
+>  6987 pts/2    T      0:00 ./mysplit 4
+>  6988 pts/2    T      0:00 ./mysplit 4
+>  6991 pts/2    R      0:00 /bin/ps a
+215c215
+< 14505 pts/2    R    794:43 ./shell/tsh -p
+---
+> 14505 pts/2    R    794:42 ./shell/tsh -p
+217c217
+< 15060 pts/2    R    766:49 ./shell/tsh -p
+---
+> 15060 pts/2    R    766:48 ./shell/tsh -p
+225c225
+< 15782 pts/2    R    613:38 ./shell/tsh -p
+---
+> 15782 pts/2    R    613:37 ./shell/tsh -p
+227c227
+< 16581 pts/2    R    573:46 ./shell/tsh -p
+---
+> 16581 pts/2    R    573:45 ./shell/tsh -p
+229c229
+< 16641 pts/2    R    575:42 ./shell/tsh -p
+---
+> 16641 pts/2    R    575:41 ./shell/tsh -p
+241c241
+< 19109 pts/2    R    387:08 ./shell/tsh -p
+---
+> 19109 pts/2    R    387:07 ./shell/tsh -p
+253c253
+< 26665 pts/2    R    187:23 ./tsh -p
+---
+> 26665 pts/2    R    187:22 ./tsh -p
+255c255
+< 26692 pts/2    R    188:29 ./tsh -p
+---
+> 26692 pts/2    R    188:28 ./tsh -p
+265c265
+< 26813 pts/2    R    185:49 ./tsh -p
+---
+> 26813 pts/2    R    185:48 ./tsh -p
+271c271
+< 26873 pts/2    R    184:20 ./tsh -p
+---
+> 26873 pts/2    R    184:19 ./tsh -p
+277c277
+< 27032 pts/2    R    180:32 ./tsh -p
+---
+> 27032 pts/2    R    180:31 ./tsh -p
+281c281
+< 27093 pts/2    R    184:48 ./tsh -p
+---
+> 27093 pts/2    R    184:47 ./tsh -p
+289c289
+< 27765 pts/2    R    160:50 ./tsh -p
+---
+> 27765 pts/2    R    160:49 ./tsh -p
+298c298
+< 28009 pts/2    R    156:59 ./tsh -p
+---
+> 28009 pts/2    R    156:58 ./tsh -p
+302c302
+< 28074 pts/2    R    157:01 ./tsh -p
+---
+> 28074 pts/2    R    157:00 ./tsh -p
+320c320
+< Job [1] (7014) stopped by signal 20
+---
+> Job [1] (7003) stopped by signal 20
+322c322
+< [1] (7014) Stopped ./mysplit 4 
+---
+> [1] (7003) Stopped ./mysplit 4 
+331,335c331,335
+<  7011 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace13.txt -s ./tshref -a -p
+<  7012 pts/2    S+     0:00 ./tshref -p
+<  7014 pts/2    T      0:00 ./mysplit 4
+<  7015 pts/2    T      0:00 ./mysplit 4
+<  7018 pts/2    R      0:00 /bin/ps a
+---
+>  7000 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace13.txt -s ./tsh -a -p
+>  7001 pts/2    S+     0:00 ./tsh -p
+>  7003 pts/2    T      0:00 ./mysplit 4
+>  7004 pts/2    T      0:00 ./mysplit 4
+>  7007 pts/2    R      0:00 /bin/ps a
+337c337
+< 14505 pts/2    R    794:44 ./shell/tsh -p
+---
+> 14505 pts/2    R    794:43 ./shell/tsh -p
+339c339
+< 15060 pts/2    R    766:50 ./shell/tsh -p
+---
+> 15060 pts/2    R    766:49 ./shell/tsh -p
+341c341
+< 15440 pts/2    R    668:26 ./shell/tsh -p
+---
+> 15440 pts/2    R    668:25 ./shell/tsh -p
+343c343
+< 15492 pts/2    R    663:47 ./shell/tsh -p
+---
+> 15492 pts/2    R    663:46 ./shell/tsh -p
+347c347
+< 15782 pts/2    R    613:39 ./shell/tsh -p
+---
+> 15782 pts/2    R    613:38 ./shell/tsh -p
+349c349
+< 16581 pts/2    R    573:47 ./shell/tsh -p
+---
+> 16581 pts/2    R    573:46 ./shell/tsh -p
+351c351
+< 16641 pts/2    R    575:43 ./shell/tsh -p
+---
+> 16641 pts/2    R    575:42 ./shell/tsh -p
+353c353
+< 16680 pts/2    R    573:31 ./shell/tsh -p
+---
+> 16680 pts/2    R    573:30 ./shell/tsh -p
+357c357
+< 18925 pts/2    R    398:41 ./shell/tsh -p
+---
+> 18925 pts/2    R    398:40 ./shell/tsh -p
+359c359
+< 19002 pts/2    R    398:19 ./shell/tsh -p
+---
+> 19002 pts/2    R    398:18 ./shell/tsh -p
+361c361
+< 19070 pts/2    R    391:20 ./shell/tsh -p
+---
+> 19070 pts/2    R    391:19 ./shell/tsh -p
+363c363
+< 19109 pts/2    R    387:09 ./shell/tsh -p
+---
+> 19109 pts/2    R    387:08 ./shell/tsh -p
+365c365
+< 19133 pts/2    R    382:43 ./shell/tsh -p
+---
+> 19133 pts/2    R    382:42 ./shell/tsh -p
+369c369
+< 19183 pts/2    R    386:31 ./shell/tsh -p
+---
+> 19183 pts/2    R    386:30 ./shell/tsh -p
+371c371
+< 26592 pts/2    R    187:19 ./tsh -p
+---
+> 26592 pts/2    R    187:18 ./tsh -p
+373c373
+< 26642 pts/2    R    181:23 ./tsh -p
+---
+> 26642 pts/2    R    181:22 ./tsh -p
+375c375
+< 26665 pts/2    R    187:24 ./tsh -p
+---
+> 26665 pts/2    R    187:23 ./tsh -p
+377c377
+< 26692 pts/2    R    188:30 ./tsh -p
+---
+> 26692 pts/2    R    188:29 ./tsh -p
+379c379
+< 26716 pts/2    R    182:06 ./tsh -p
+---
+> 26716 pts/2    R    182:05 ./tsh -p
+381c381
+< 26741 pts/2    R    184:42 ./tsh -p
+---
+> 26741 pts/2    R    184:41 ./tsh -p
+385c385
+< 26801 pts/2    R    184:25 ./tsh -p
+---
+> 26801 pts/2    R    184:24 ./tsh -p
+387c387
+< 26813 pts/2    R    185:50 ./tsh -p
+---
+> 26813 pts/2    R    185:49 ./tsh -p
+391c391
+< 26850 pts/2    R    182:47 ./tsh -p
+---
+> 26850 pts/2    R    182:46 ./tsh -p
+393c393
+< 26873 pts/2    R    184:21 ./tsh -p
+---
+> 26873 pts/2    R    184:20 ./tsh -p
+395c395
+< 26921 pts/2    R    184:03 ./tsh -p
+---
+> 26921 pts/2    R    184:02 ./tsh -p
+397c397
+< 26983 pts/2    R    177:24 ./tsh -p
+---
+> 26983 pts/2    R    177:23 ./tsh -p
+399c399
+< 27032 pts/2    R    180:33 ./tsh -p
+---
+> 27032 pts/2    R    180:32 ./tsh -p
+401c401
+< 27070 pts/2    R    182:44 ./tsh -p
+---
+> 27070 pts/2    R    182:43 ./tsh -p
+403c403
+< 27093 pts/2    R    184:49 ./tsh -p
+---
+> 27093 pts/2    R    184:48 ./tsh -p
+409c409
+< 27734 pts/2    R    161:03 ./tsh -p
+---
+> 27734 pts/2    R    161:02 ./tsh -p
+411c411
+< 27765 pts/2    R    160:51 ./tsh -p
+---
+> 27765 pts/2    R    160:50 ./tsh -p
+415c415
+< 27859 pts/2    R    159:25 ./tsh -p
+---
+> 27859 pts/2    R    159:24 ./tsh -p
+418c418
+< 27980 pts/2    R    155:45 ./tsh -p
+---
+> 27980 pts/2    R    155:44 ./tsh -p
+420c420
+< 28009 pts/2    R    157:00 ./tsh -p
+---
+> 28009 pts/2    R    156:59 ./tsh -p
+422c422
+< 28063 pts/2    R    153:41 ./tsh -p
+---
+> 28063 pts/2    R    153:40 ./tsh -p
+424c424
+< 28074 pts/2    R    157:02 ./tsh -p
+---
+> 28074 pts/2    R    157:01 ./tsh -p
+429c429
+< 28176 pts/2    R    155:16 ./tsh -p
+---
+> 28176 pts/2    R    155:15 ./tsh -p
+447,449c447,449
+<  7011 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace13.txt -s ./tshref -a -p
+<  7012 pts/2    S+     0:00 ./tshref -p
+<  7021 pts/2    R      0:00 /bin/ps a
+---
+>  7000 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace13.txt -s ./tsh -a -p
+>  7001 pts/2    S+     0:00 ./tsh -p
+>  7010 pts/2    R      0:00 /bin/ps a
+453c453
+< 15060 pts/2    R    766:50 ./shell/tsh -p
+---
+> 15060 pts/2    R    766:49 ./shell/tsh -p
+459c459
+< 15529 pts/2    R    662:43 ./shell/tsh -p
+---
+> 15529 pts/2    R    662:42 ./shell/tsh -p
+461c461
+< 15782 pts/2    R    613:39 ./shell/tsh -p
+---
+> 15782 pts/2    R    613:38 ./shell/tsh -p
+463c463
+< 16581 pts/2    R    573:47 ./shell/tsh -p
+---
+> 16581 pts/2    R    573:46 ./shell/tsh -p
+465c465
+< 16641 pts/2    R    575:43 ./shell/tsh -p
+---
+> 16641 pts/2    R    575:42 ./shell/tsh -p
+467c467
+< 16680 pts/2    R    573:32 ./shell/tsh -p
+---
+> 16680 pts/2    R    573:31 ./shell/tsh -p
+469c469
+< 18876 pts/2    R    403:30 ./shell/tsh -p
+---
+> 18876 pts/2    R    403:29 ./shell/tsh -p
+471c471
+< 18925 pts/2    R    398:42 ./shell/tsh -p
+---
+> 18925 pts/2    R    398:41 ./shell/tsh -p
+473c473
+< 19002 pts/2    R    398:19 ./shell/tsh -p
+---
+> 19002 pts/2    R    398:18 ./shell/tsh -p
+477c477
+< 19109 pts/2    R    387:09 ./shell/tsh -p
+---
+> 19109 pts/2    R    387:08 ./shell/tsh -p
+481c481
+< 19158 pts/2    R    383:28 ./shell/tsh -p
+---
+> 19158 pts/2    R    383:27 ./shell/tsh -p
+483c483
+< 19183 pts/2    R    386:31 ./shell/tsh -p
+---
+> 19183 pts/2    R    386:30 ./shell/tsh -p
+489c489
+< 26665 pts/2    R    187:24 ./tsh -p
+---
+> 26665 pts/2    R    187:23 ./tsh -p
+497c497
+< 26771 pts/2    R    182:02 ./tsh -p
+---
+> 26771 pts/2    R    182:01 ./tsh -p
+499c499
+< 26801 pts/2    R    184:25 ./tsh -p
+---
+> 26801 pts/2    R    184:24 ./tsh -p
+501c501
+< 26813 pts/2    R    185:50 ./tsh -p
+---
+> 26813 pts/2    R    185:49 ./tsh -p
+503c503
+< 26824 pts/2    R    179:57 ./tsh -p
+---
+> 26824 pts/2    R    179:56 ./tsh -p
+509c509
+< 26921 pts/2    R    184:03 ./tsh -p
+---
+> 26921 pts/2    R    184:02 ./tsh -p
+511c511
+< 26983 pts/2    R    177:25 ./tsh -p
+---
+> 26983 pts/2    R    177:24 ./tsh -p
+513c513
+< 27032 pts/2    R    180:33 ./tsh -p
+---
+> 27032 pts/2    R    180:32 ./tsh -p
+515c515
+< 27070 pts/2    R    182:44 ./tsh -p
+---
+> 27070 pts/2    R    182:43 ./tsh -p
+521c521
+< 27585 pts/2    R    156:30 ./tsh -p
+---
+> 27585 pts/2    R    156:29 ./tsh -p
+527c527
+< 27796 pts/2    R    159:45 ./tsh -p
+---
+> 27796 pts/2    R    159:44 ./tsh -p
+529c529
+< 27859 pts/2    R    159:25 ./tsh -p
+---
+> 27859 pts/2    R    159:24 ./tsh -p
+531,532c531,532
+< 27926 pts/2    R    157:59 ./tsh -p
+< 27980 pts/2    R    155:46 ./tsh -p
+---
+> 27926 pts/2    R    157:58 ./tsh -p
+> 27980 pts/2    R    155:45 ./tsh -p
+534,535c534,535
+< 28009 pts/2    R    157:00 ./tsh -p
+< 28036 pts/2    R    149:57 ./tsh -p
+---
+> 28009 pts/2    R    156:59 ./tsh -p
+> 28036 pts/2    R    149:56 ./tsh -p
+538c538
+< 28074 pts/2    R    157:02 ./tsh -p
+---
+> 28074 pts/2    R    157:01 ./tsh -p
+540c540
+< 28085 pts/2    R    157:27 ./tsh -p
+---
+> 28085 pts/2    R    157:26 ./tsh -p
+542,543c542,543
+< 28147 pts/2    R    148:47 ./tsh -p
+< 28176 pts/2    R    155:17 ./tsh -p
+---
+> 28147 pts/2    R    148:46 ./tsh -p
+> 28176 pts/2    R    155:16 ./tsh -p
+556c556
+< ./bogus: Command not found
+---
+> ./bogus: No such file or directory
+558c558
+< [1] (7044) ./myspin 4 &
+---
+> [1] (7027) ./myspin 4 &
+574c574
+< Job [1] (7044) stopped by signal 20
+---
+> Job [1] (7027) stopped by signal 20
+578c578
+< [1] (7044) ./myspin 4 &
+---
+> [1] (7027) ./myspin 4 &
+580c580
+< [1] (7044) Running ./myspin 4 &
+---
+> [1] (7027) Running ./myspin 4 &
+585c585
+< ./bogus: Command not found
+---
+> ./bogus: No such file or directory
+587c587
+< Job [1] (7079) terminated by signal 2
+---
+> Job [1] (7061) terminated by signal 2
+589c589
+< [1] (7081) ./myspin 3 &
+---
+> [1] (7063) ./myspin 3 &
+591c591
+< [2] (7083) ./myspin 4 &
+---
+> [2] (7065) ./myspin 4 &
+593,594c593,594
+< [1] (7081) Running ./myspin 3 &
+< [2] (7083) Running ./myspin 4 &
+---
+> [1] (7063) Running ./myspin 3 &
+> [2] (7065) Running ./myspin 4 &
+596c596
+< Job [1] (7081) stopped by signal 20
+---
+> Job [1] (7063) stopped by signal 20
+598,599c598,599
+< [1] (7081) Stopped ./myspin 3 &
+< [2] (7083) Running ./myspin 4 &
+---
+> [1] (7063) Stopped ./myspin 3 &
+> [2] (7065) Running ./myspin 4 &
+603c603
+< [1] (7081) ./myspin 3 &
+---
+> [1] (7063) ./myspin 3 &
+605,606c605,606
+< [1] (7081) Running ./myspin 3 &
+< [2] (7083) Running ./myspin 4 &
+---
+> [1] (7063) Running ./myspin 3 &
+> [2] (7065) Running ./myspin 4 &
+614c614
+< Job [1] (7102) stopped by signal 20
+---
+> Job [1] (7095) stopped by signal 20
+616c616
+< [1] (7102) Stopped ./mystop 2
+---
+> [1] (7095) Stopped ./mystop 2
+618c618
+< Job [2] (7105) terminated by signal 2
+---
+> Job [2] (7098) terminated by signal 2

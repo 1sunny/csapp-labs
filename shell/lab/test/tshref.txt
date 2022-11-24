@@ -1,0 +1,618 @@
+#
+# trace01.txt - Properly terminate on EOF.
+#
+#
+# trace02.txt - Process builtin quit command.
+#
+#
+# trace03.txt - Run a foreground job.
+#
+tsh> quit
+#
+# trace04.txt - Run a background job.
+#
+tsh> ./myspin 1 &
+[1] (6881) ./myspin 1 &
+#
+# trace05.txt - Process jobs builtin command.
+#
+tsh> ./myspin 2 &
+[1] (6892) ./myspin 2 &
+tsh> ./myspin 3 &
+[2] (6894) ./myspin 3 &
+tsh> jobs
+[1] (6892) Running ./myspin 2 &
+[2] (6894) Running ./myspin 3 &
+#
+# trace06.txt - Forward SIGINT to foreground job.
+#
+tsh> ./myspin 4
+Job [1] (6906) terminated by signal 2
+#
+# trace07.txt - Forward SIGINT only to foreground job.
+#
+tsh> ./myspin 4 &
+[1] (6917) ./myspin 4 &
+tsh> ./myspin 5
+Job [2] (6919) terminated by signal 2
+tsh> jobs
+[1] (6917) Running ./myspin 4 &
+#
+# trace08.txt - Forward SIGTSTP only to foreground job.
+#
+tsh> ./myspin 4 &
+[1] (6931) ./myspin 4 &
+tsh> ./myspin 5
+Job [2] (6933) stopped by signal 20
+tsh> jobs
+[1] (6931) Running ./myspin 4 &
+[2] (6933) Stopped ./myspin 5 
+#
+# trace09.txt - Process bg builtin command
+#
+tsh> ./myspin 4 &
+[1] (6948) ./myspin 4 &
+tsh> ./myspin 5
+Job [2] (6950) stopped by signal 20
+tsh> jobs
+[1] (6948) Running ./myspin 4 &
+[2] (6950) Stopped ./myspin 5 
+tsh> bg %2
+[2] (6950) ./myspin 5 
+tsh> jobs
+[1] (6948) Running ./myspin 4 &
+[2] (6950) Running ./myspin 5 
+#
+# trace10.txt - Process fg builtin command. 
+#
+tsh> ./myspin 4 &
+[1] (6965) ./myspin 4 &
+tsh> fg %1
+Job [1] (6965) stopped by signal 20
+tsh> jobs
+[1] (6965) Stopped ./myspin 4 &
+tsh> fg %1
+tsh> jobs
+#
+# trace11.txt - Forward SIGINT to every process in foreground process group
+#
+tsh> ./mysplit 4
+Job [1] (6980) terminated by signal 2
+tsh> /bin/ps a
+  PID TTY      STAT   TIME COMMAND
+ 2596 pts/0    Ss+    0:01 ./fsnotifier-wsl
+ 4495 pts/7    Ss+    0:00 -zsh
+ 4720 pts/2    Ss     0:12 -zsh
+ 5043 pts/3    Ss+    0:00 /bin/sh -c export LLVM_SYMBOLIZER_PATH='D:\Clion\CLion 2022.2.1\bin\clang\win\llvm-symbolizer.exe' && /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics '-header-extensions=h;h;cuh;'
+ 5044 pts/3    Sl+    0:05 /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics -header-extensions=h;h;cuh;
+ 6850 pts/2    S+     0:00 bash test.sh
+ 6977 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace11.txt -s ./tshref -a -p
+ 6978 pts/2    S+     0:00 ./tshref -p
+ 6983 pts/2    R      0:00 /bin/ps a
+11047 pts/6    Ss+    0:03 -zsh
+14505 pts/2    R    794:42 ./shell/tsh -p
+14507 pts/2    Z      0:00 [myspin] <defunct>
+15060 pts/2    R    766:48 ./shell/tsh -p
+15062 pts/2    Z      0:00 [myspin] <defunct>
+15440 pts/2    R    668:24 ./shell/tsh -p
+15442 pts/2    Z      0:00 [myspin] <defunct>
+15492 pts/2    R    663:45 ./shell/tsh -p
+15494 pts/2    Z      0:00 [myspin] <defunct>
+15529 pts/2    R    662:40 ./shell/tsh -p
+15531 pts/2    Z      0:00 [myspin] <defunct>
+15782 pts/2    R    613:37 ./shell/tsh -p
+15784 pts/2    Z      0:00 [myspin] <defunct>
+16581 pts/2    R    573:45 ./shell/tsh -p
+16583 pts/2    Z      0:00 [myspin] <defunct>
+16641 pts/2    R    575:41 ./shell/tsh -p
+16643 pts/2    Z      0:00 [myspin] <defunct>
+16680 pts/2    R    573:29 ./shell/tsh -p
+16682 pts/2    Z      0:00 [myspin] <defunct>
+18876 pts/2    R    403:27 ./shell/tsh -p
+18878 pts/2    Z      0:00 [myspin] <defunct>
+18925 pts/2    R    398:39 ./shell/tsh -p
+18927 pts/2    Z      0:00 [myspin] <defunct>
+19002 pts/2    R    398:17 ./shell/tsh -p
+19004 pts/2    Z      0:00 [myspin] <defunct>
+19070 pts/2    R    391:18 ./shell/tsh -p
+19072 pts/2    Z      0:00 [myspin] <defunct>
+19109 pts/2    R    387:07 ./shell/tsh -p
+19111 pts/2    Z      0:00 [myspin] <defunct>
+19133 pts/2    R    382:41 ./shell/tsh -p
+19135 pts/2    Z      0:00 [myspin] <defunct>
+19158 pts/2    R    383:25 ./shell/tsh -p
+19160 pts/2    Z      0:00 [myspin] <defunct>
+19183 pts/2    R    386:29 ./shell/tsh -p
+19185 pts/2    Z      0:00 [myspin] <defunct>
+26592 pts/2    R    187:17 ./tsh -p
+26594 pts/2    Z      0:00 [myspin] <defunct>
+26642 pts/2    R    181:21 ./tsh -p
+26644 pts/2    Z      0:00 [myspin] <defunct>
+26665 pts/2    R    187:22 ./tsh -p
+26667 pts/2    Z      0:00 [myspin] <defunct>
+26692 pts/2    R    188:28 ./tsh -p
+26694 pts/2    Z      0:00 [myspin] <defunct>
+26716 pts/2    R    182:04 ./tsh -p
+26718 pts/2    Z      0:00 [myspin] <defunct>
+26741 pts/2    R    184:40 ./tsh -p
+26743 pts/2    Z      0:00 [myspin] <defunct>
+26771 pts/2    R    181:59 ./tsh -p
+26773 pts/2    Z      0:00 [myspin] <defunct>
+26801 pts/2    R    184:23 ./tsh -p
+26803 pts/2    Z      0:00 [myspin] <defunct>
+26813 pts/2    R    185:48 ./tsh -p
+26815 pts/2    Z      0:00 [myspin] <defunct>
+26824 pts/2    R    179:54 ./tsh -p
+26826 pts/2    Z      0:00 [myspin] <defunct>
+26850 pts/2    R    182:45 ./tsh -p
+26852 pts/2    Z      0:00 [myspin] <defunct>
+26873 pts/2    R    184:19 ./tsh -p
+26875 pts/2    Z      0:00 [myspin] <defunct>
+26921 pts/2    R    184:01 ./tsh -p
+26923 pts/2    Z      0:00 [myspin] <defunct>
+26983 pts/2    R    177:22 ./tsh -p
+26985 pts/2    Z      0:00 [myspin] <defunct>
+27032 pts/2    R    180:31 ./tsh -p
+27034 pts/2    Z      0:00 [myspin] <defunct>
+27070 pts/2    R    182:42 ./tsh -p
+27072 pts/2    Z      0:00 [myspin] <defunct>
+27093 pts/2    R    184:47 ./tsh -p
+27095 pts/2    Z      0:00 [myspin] <defunct>
+27441 pts/8    Ss+    0:00 /bin/sh -c export LLVM_SYMBOLIZER_PATH='D:\Clion\CLion 2022.2.1\bin\clang\win\llvm-symbolizer.exe' && /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics '-header-extensions=h;h;cuh;'
+27442 pts/8    Sl+    6:44 /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics -header-extensions=h;h;cuh;
+27585 pts/2    R    156:28 ./tsh -p
+27587 pts/2    Z      0:00 [myspin] <defunct>
+27734 pts/2    R    161:01 ./tsh -p
+27736 pts/2    Z      0:00 [myspin] <defunct>
+27765 pts/2    R    160:49 ./tsh -p
+27767 pts/2    Z      0:00 [myspin] <defunct>
+27796 pts/2    R    159:42 ./tsh -p
+27798 pts/2    Z      0:00 [myspin] <defunct>
+27859 pts/2    R    159:23 ./tsh -p
+27861 pts/2    Z      0:00 [myspin] <defunct>
+27926 pts/2    R    157:56 ./tsh -p
+27980 pts/2    R    155:43 ./tsh -p
+27982 pts/2    Z      0:00 [myspin] <defunct>
+28009 pts/2    R    156:58 ./tsh -p
+28036 pts/2    R    149:55 ./tsh -p
+28063 pts/2    R    153:39 ./tsh -p
+28065 pts/2    Z      0:00 [myspin] <defunct>
+28074 pts/2    R    157:00 ./tsh -p
+28076 pts/2    Z      0:00 [myspin] <defunct>
+28085 pts/2    R    157:25 ./tsh -p
+28087 pts/2    Z      0:00 [myspin] <defunct>
+28147 pts/2    R    148:44 ./tsh -p
+28176 pts/2    R    155:14 ./tsh -p
+28178 pts/2    Z      0:00 [myspin] <defunct>
+28820 pts/2    S      0:00 ./tsh -p
+28821 pts/2    Z      0:00 [echo] <defunct>
+30295 pts/1    Ss+    0:00 sh -c "$VSCODE_WSL_EXT_LOCATION/scripts/wslServer.sh" d045a5eda657f4d7b676dedbfa7aab8207f8a075 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30296 pts/1    S+     0:00 sh /mnt/c/Users/will/.vscode/extensions/ms-vscode-remote.remote-wsl-0.72.0/scripts/wslServer.sh d045a5eda657f4d7b676dedbfa7aab8207f8a075 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30322 pts/1    S+     0:00 sh /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/bin/code-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30326 pts/1    Sl+    0:04 /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/node /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/out/server-main.js --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30337 pts/1    Sl+    0:02 /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/node /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/out/bootstrap-fork --type=ptyHost --logsPath /root/.vscode-server/data/logs/20221123T171632
+#
+# trace12.txt - Forward SIGTSTP to every process in foreground process group
+#
+tsh> ./mysplit 4
+Job [1] (6995) stopped by signal 20
+tsh> jobs
+[1] (6995) Stopped ./mysplit 4 
+tsh> /bin/ps a
+  PID TTY      STAT   TIME COMMAND
+ 2596 pts/0    Ss+    0:01 ./fsnotifier-wsl
+ 4495 pts/7    Ss+    0:00 -zsh
+ 4720 pts/2    Ss     0:12 -zsh
+ 5043 pts/3    Ss+    0:00 /bin/sh -c export LLVM_SYMBOLIZER_PATH='D:\Clion\CLion 2022.2.1\bin\clang\win\llvm-symbolizer.exe' && /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics '-header-extensions=h;h;cuh;'
+ 5044 pts/3    Sl+    0:05 /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics -header-extensions=h;h;cuh;
+ 6850 pts/2    S+     0:00 bash test.sh
+ 6992 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace12.txt -s ./tshref -a -p
+ 6993 pts/2    S+     0:00 ./tshref -p
+ 6995 pts/2    T      0:00 ./mysplit 4
+ 6996 pts/2    T      0:00 ./mysplit 4
+ 6999 pts/2    R      0:00 /bin/ps a
+11047 pts/6    Ss+    0:03 -zsh
+14505 pts/2    R    794:43 ./shell/tsh -p
+14507 pts/2    Z      0:00 [myspin] <defunct>
+15060 pts/2    R    766:49 ./shell/tsh -p
+15062 pts/2    Z      0:00 [myspin] <defunct>
+15440 pts/2    R    668:25 ./shell/tsh -p
+15442 pts/2    Z      0:00 [myspin] <defunct>
+15492 pts/2    R    663:46 ./shell/tsh -p
+15494 pts/2    Z      0:00 [myspin] <defunct>
+15529 pts/2    R    662:41 ./shell/tsh -p
+15531 pts/2    Z      0:00 [myspin] <defunct>
+15782 pts/2    R    613:38 ./shell/tsh -p
+15784 pts/2    Z      0:00 [myspin] <defunct>
+16581 pts/2    R    573:46 ./shell/tsh -p
+16583 pts/2    Z      0:00 [myspin] <defunct>
+16641 pts/2    R    575:42 ./shell/tsh -p
+16643 pts/2    Z      0:00 [myspin] <defunct>
+16680 pts/2    R    573:30 ./shell/tsh -p
+16682 pts/2    Z      0:00 [myspin] <defunct>
+18876 pts/2    R    403:28 ./shell/tsh -p
+18878 pts/2    Z      0:00 [myspin] <defunct>
+18925 pts/2    R    398:40 ./shell/tsh -p
+18927 pts/2    Z      0:00 [myspin] <defunct>
+19002 pts/2    R    398:17 ./shell/tsh -p
+19004 pts/2    Z      0:00 [myspin] <defunct>
+19070 pts/2    R    391:19 ./shell/tsh -p
+19072 pts/2    Z      0:00 [myspin] <defunct>
+19109 pts/2    R    387:08 ./shell/tsh -p
+19111 pts/2    Z      0:00 [myspin] <defunct>
+19133 pts/2    R    382:42 ./shell/tsh -p
+19135 pts/2    Z      0:00 [myspin] <defunct>
+19158 pts/2    R    383:26 ./shell/tsh -p
+19160 pts/2    Z      0:00 [myspin] <defunct>
+19183 pts/2    R    386:29 ./shell/tsh -p
+19185 pts/2    Z      0:00 [myspin] <defunct>
+26592 pts/2    R    187:18 ./tsh -p
+26594 pts/2    Z      0:00 [myspin] <defunct>
+26642 pts/2    R    181:22 ./tsh -p
+26644 pts/2    Z      0:00 [myspin] <defunct>
+26665 pts/2    R    187:23 ./tsh -p
+26667 pts/2    Z      0:00 [myspin] <defunct>
+26692 pts/2    R    188:29 ./tsh -p
+26694 pts/2    Z      0:00 [myspin] <defunct>
+26716 pts/2    R    182:05 ./tsh -p
+26718 pts/2    Z      0:00 [myspin] <defunct>
+26741 pts/2    R    184:41 ./tsh -p
+26743 pts/2    Z      0:00 [myspin] <defunct>
+26771 pts/2    R    182:00 ./tsh -p
+26773 pts/2    Z      0:00 [myspin] <defunct>
+26801 pts/2    R    184:23 ./tsh -p
+26803 pts/2    Z      0:00 [myspin] <defunct>
+26813 pts/2    R    185:49 ./tsh -p
+26815 pts/2    Z      0:00 [myspin] <defunct>
+26824 pts/2    R    179:55 ./tsh -p
+26826 pts/2    Z      0:00 [myspin] <defunct>
+26850 pts/2    R    182:46 ./tsh -p
+26852 pts/2    Z      0:00 [myspin] <defunct>
+26873 pts/2    R    184:20 ./tsh -p
+26875 pts/2    Z      0:00 [myspin] <defunct>
+26921 pts/2    R    184:01 ./tsh -p
+26923 pts/2    Z      0:00 [myspin] <defunct>
+26983 pts/2    R    177:23 ./tsh -p
+26985 pts/2    Z      0:00 [myspin] <defunct>
+27032 pts/2    R    180:32 ./tsh -p
+27034 pts/2    Z      0:00 [myspin] <defunct>
+27070 pts/2    R    182:42 ./tsh -p
+27072 pts/2    Z      0:00 [myspin] <defunct>
+27093 pts/2    R    184:48 ./tsh -p
+27095 pts/2    Z      0:00 [myspin] <defunct>
+27441 pts/8    Ss+    0:00 /bin/sh -c export LLVM_SYMBOLIZER_PATH='D:\Clion\CLion 2022.2.1\bin\clang\win\llvm-symbolizer.exe' && /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics '-header-extensions=h;h;cuh;'
+27442 pts/8    Sl+    6:44 /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics -header-extensions=h;h;cuh;
+27585 pts/2    R    156:28 ./tsh -p
+27587 pts/2    Z      0:00 [myspin] <defunct>
+27734 pts/2    R    161:02 ./tsh -p
+27736 pts/2    Z      0:00 [myspin] <defunct>
+27765 pts/2    R    160:50 ./tsh -p
+27767 pts/2    Z      0:00 [myspin] <defunct>
+27796 pts/2    R    159:43 ./tsh -p
+27798 pts/2    Z      0:00 [myspin] <defunct>
+27859 pts/2    R    159:23 ./tsh -p
+27861 pts/2    Z      0:00 [myspin] <defunct>
+27926 pts/2    R    157:57 ./tsh -p
+27980 pts/2    R    155:44 ./tsh -p
+27982 pts/2    Z      0:00 [myspin] <defunct>
+28009 pts/2    R    156:59 ./tsh -p
+28036 pts/2    R    149:55 ./tsh -p
+28063 pts/2    R    153:40 ./tsh -p
+28065 pts/2    Z      0:00 [myspin] <defunct>
+28074 pts/2    R    157:01 ./tsh -p
+28076 pts/2    Z      0:00 [myspin] <defunct>
+28085 pts/2    R    157:25 ./tsh -p
+28087 pts/2    Z      0:00 [myspin] <defunct>
+28147 pts/2    R    148:45 ./tsh -p
+28176 pts/2    R    155:15 ./tsh -p
+28178 pts/2    Z      0:00 [myspin] <defunct>
+28820 pts/2    S      0:00 ./tsh -p
+28821 pts/2    Z      0:00 [echo] <defunct>
+30295 pts/1    Ss+    0:00 sh -c "$VSCODE_WSL_EXT_LOCATION/scripts/wslServer.sh" d045a5eda657f4d7b676dedbfa7aab8207f8a075 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30296 pts/1    S+     0:00 sh /mnt/c/Users/will/.vscode/extensions/ms-vscode-remote.remote-wsl-0.72.0/scripts/wslServer.sh d045a5eda657f4d7b676dedbfa7aab8207f8a075 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30322 pts/1    S+     0:00 sh /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/bin/code-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30326 pts/1    Sl+    0:04 /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/node /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/out/server-main.js --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30337 pts/1    Sl+    0:02 /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/node /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/out/bootstrap-fork --type=ptyHost --logsPath /root/.vscode-server/data/logs/20221123T171632
+#
+# trace13.txt - Restart every stopped process in process group
+#
+tsh> ./mysplit 4
+Job [1] (7014) stopped by signal 20
+tsh> jobs
+[1] (7014) Stopped ./mysplit 4 
+tsh> /bin/ps a
+  PID TTY      STAT   TIME COMMAND
+ 2596 pts/0    Ss+    0:01 ./fsnotifier-wsl
+ 4495 pts/7    Ss+    0:00 -zsh
+ 4720 pts/2    Ss     0:12 -zsh
+ 5043 pts/3    Ss+    0:00 /bin/sh -c export LLVM_SYMBOLIZER_PATH='D:\Clion\CLion 2022.2.1\bin\clang\win\llvm-symbolizer.exe' && /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics '-header-extensions=h;h;cuh;'
+ 5044 pts/3    Sl+    0:05 /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics -header-extensions=h;h;cuh;
+ 6850 pts/2    S+     0:00 bash test.sh
+ 7011 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace13.txt -s ./tshref -a -p
+ 7012 pts/2    S+     0:00 ./tshref -p
+ 7014 pts/2    T      0:00 ./mysplit 4
+ 7015 pts/2    T      0:00 ./mysplit 4
+ 7018 pts/2    R      0:00 /bin/ps a
+11047 pts/6    Ss+    0:03 -zsh
+14505 pts/2    R    794:44 ./shell/tsh -p
+14507 pts/2    Z      0:00 [myspin] <defunct>
+15060 pts/2    R    766:50 ./shell/tsh -p
+15062 pts/2    Z      0:00 [myspin] <defunct>
+15440 pts/2    R    668:26 ./shell/tsh -p
+15442 pts/2    Z      0:00 [myspin] <defunct>
+15492 pts/2    R    663:47 ./shell/tsh -p
+15494 pts/2    Z      0:00 [myspin] <defunct>
+15529 pts/2    R    662:42 ./shell/tsh -p
+15531 pts/2    Z      0:00 [myspin] <defunct>
+15782 pts/2    R    613:39 ./shell/tsh -p
+15784 pts/2    Z      0:00 [myspin] <defunct>
+16581 pts/2    R    573:47 ./shell/tsh -p
+16583 pts/2    Z      0:00 [myspin] <defunct>
+16641 pts/2    R    575:43 ./shell/tsh -p
+16643 pts/2    Z      0:00 [myspin] <defunct>
+16680 pts/2    R    573:31 ./shell/tsh -p
+16682 pts/2    Z      0:00 [myspin] <defunct>
+18876 pts/2    R    403:29 ./shell/tsh -p
+18878 pts/2    Z      0:00 [myspin] <defunct>
+18925 pts/2    R    398:41 ./shell/tsh -p
+18927 pts/2    Z      0:00 [myspin] <defunct>
+19002 pts/2    R    398:19 ./shell/tsh -p
+19004 pts/2    Z      0:00 [myspin] <defunct>
+19070 pts/2    R    391:20 ./shell/tsh -p
+19072 pts/2    Z      0:00 [myspin] <defunct>
+19109 pts/2    R    387:09 ./shell/tsh -p
+19111 pts/2    Z      0:00 [myspin] <defunct>
+19133 pts/2    R    382:43 ./shell/tsh -p
+19135 pts/2    Z      0:00 [myspin] <defunct>
+19158 pts/2    R    383:27 ./shell/tsh -p
+19160 pts/2    Z      0:00 [myspin] <defunct>
+19183 pts/2    R    386:31 ./shell/tsh -p
+19185 pts/2    Z      0:00 [myspin] <defunct>
+26592 pts/2    R    187:19 ./tsh -p
+26594 pts/2    Z      0:00 [myspin] <defunct>
+26642 pts/2    R    181:23 ./tsh -p
+26644 pts/2    Z      0:00 [myspin] <defunct>
+26665 pts/2    R    187:24 ./tsh -p
+26667 pts/2    Z      0:00 [myspin] <defunct>
+26692 pts/2    R    188:30 ./tsh -p
+26694 pts/2    Z      0:00 [myspin] <defunct>
+26716 pts/2    R    182:06 ./tsh -p
+26718 pts/2    Z      0:00 [myspin] <defunct>
+26741 pts/2    R    184:42 ./tsh -p
+26743 pts/2    Z      0:00 [myspin] <defunct>
+26771 pts/2    R    182:01 ./tsh -p
+26773 pts/2    Z      0:00 [myspin] <defunct>
+26801 pts/2    R    184:25 ./tsh -p
+26803 pts/2    Z      0:00 [myspin] <defunct>
+26813 pts/2    R    185:50 ./tsh -p
+26815 pts/2    Z      0:00 [myspin] <defunct>
+26824 pts/2    R    179:56 ./tsh -p
+26826 pts/2    Z      0:00 [myspin] <defunct>
+26850 pts/2    R    182:47 ./tsh -p
+26852 pts/2    Z      0:00 [myspin] <defunct>
+26873 pts/2    R    184:21 ./tsh -p
+26875 pts/2    Z      0:00 [myspin] <defunct>
+26921 pts/2    R    184:03 ./tsh -p
+26923 pts/2    Z      0:00 [myspin] <defunct>
+26983 pts/2    R    177:24 ./tsh -p
+26985 pts/2    Z      0:00 [myspin] <defunct>
+27032 pts/2    R    180:33 ./tsh -p
+27034 pts/2    Z      0:00 [myspin] <defunct>
+27070 pts/2    R    182:44 ./tsh -p
+27072 pts/2    Z      0:00 [myspin] <defunct>
+27093 pts/2    R    184:49 ./tsh -p
+27095 pts/2    Z      0:00 [myspin] <defunct>
+27441 pts/8    Ss+    0:00 /bin/sh -c export LLVM_SYMBOLIZER_PATH='D:\Clion\CLion 2022.2.1\bin\clang\win\llvm-symbolizer.exe' && /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics '-header-extensions=h;h;cuh;'
+27442 pts/8    Sl+    6:44 /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics -header-extensions=h;h;cuh;
+27585 pts/2    R    156:29 ./tsh -p
+27587 pts/2    Z      0:00 [myspin] <defunct>
+27734 pts/2    R    161:03 ./tsh -p
+27736 pts/2    Z      0:00 [myspin] <defunct>
+27765 pts/2    R    160:51 ./tsh -p
+27767 pts/2    Z      0:00 [myspin] <defunct>
+27796 pts/2    R    159:44 ./tsh -p
+27798 pts/2    Z      0:00 [myspin] <defunct>
+27859 pts/2    R    159:25 ./tsh -p
+27861 pts/2    Z      0:00 [myspin] <defunct>
+27926 pts/2    R    157:58 ./tsh -p
+27980 pts/2    R    155:45 ./tsh -p
+27982 pts/2    Z      0:00 [myspin] <defunct>
+28009 pts/2    R    157:00 ./tsh -p
+28036 pts/2    R    149:56 ./tsh -p
+28063 pts/2    R    153:41 ./tsh -p
+28065 pts/2    Z      0:00 [myspin] <defunct>
+28074 pts/2    R    157:02 ./tsh -p
+28076 pts/2    Z      0:00 [myspin] <defunct>
+28085 pts/2    R    157:26 ./tsh -p
+28087 pts/2    Z      0:00 [myspin] <defunct>
+28147 pts/2    R    148:46 ./tsh -p
+28176 pts/2    R    155:16 ./tsh -p
+28178 pts/2    Z      0:00 [myspin] <defunct>
+28820 pts/2    S      0:00 ./tsh -p
+28821 pts/2    Z      0:00 [echo] <defunct>
+30295 pts/1    Ss+    0:00 sh -c "$VSCODE_WSL_EXT_LOCATION/scripts/wslServer.sh" d045a5eda657f4d7b676dedbfa7aab8207f8a075 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30296 pts/1    S+     0:00 sh /mnt/c/Users/will/.vscode/extensions/ms-vscode-remote.remote-wsl-0.72.0/scripts/wslServer.sh d045a5eda657f4d7b676dedbfa7aab8207f8a075 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30322 pts/1    S+     0:00 sh /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/bin/code-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30326 pts/1    Sl+    0:04 /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/node /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/out/server-main.js --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30337 pts/1    Sl+    0:02 /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/node /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/out/bootstrap-fork --type=ptyHost --logsPath /root/.vscode-server/data/logs/20221123T171632
+tsh> fg %1
+tsh> /bin/ps a
+  PID TTY      STAT   TIME COMMAND
+ 2596 pts/0    Ss+    0:01 ./fsnotifier-wsl
+ 4495 pts/7    Ss+    0:00 -zsh
+ 4720 pts/2    Ss     0:12 -zsh
+ 5043 pts/3    Ss+    0:00 /bin/sh -c export LLVM_SYMBOLIZER_PATH='D:\Clion\CLion 2022.2.1\bin\clang\win\llvm-symbolizer.exe' && /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics '-header-extensions=h;h;cuh;'
+ 5044 pts/3    Sl+    0:05 /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics -header-extensions=h;h;cuh;
+ 6850 pts/2    S+     0:00 bash test.sh
+ 7011 pts/2    S+     0:00 /usr/bin/perl ./test/sdriver.pl -t ./trace/trace13.txt -s ./tshref -a -p
+ 7012 pts/2    S+     0:00 ./tshref -p
+ 7021 pts/2    R      0:00 /bin/ps a
+11047 pts/6    Ss+    0:03 -zsh
+14505 pts/2    R    794:44 ./shell/tsh -p
+14507 pts/2    Z      0:00 [myspin] <defunct>
+15060 pts/2    R    766:50 ./shell/tsh -p
+15062 pts/2    Z      0:00 [myspin] <defunct>
+15440 pts/2    R    668:26 ./shell/tsh -p
+15442 pts/2    Z      0:00 [myspin] <defunct>
+15492 pts/2    R    663:47 ./shell/tsh -p
+15494 pts/2    Z      0:00 [myspin] <defunct>
+15529 pts/2    R    662:43 ./shell/tsh -p
+15531 pts/2    Z      0:00 [myspin] <defunct>
+15782 pts/2    R    613:39 ./shell/tsh -p
+15784 pts/2    Z      0:00 [myspin] <defunct>
+16581 pts/2    R    573:47 ./shell/tsh -p
+16583 pts/2    Z      0:00 [myspin] <defunct>
+16641 pts/2    R    575:43 ./shell/tsh -p
+16643 pts/2    Z      0:00 [myspin] <defunct>
+16680 pts/2    R    573:32 ./shell/tsh -p
+16682 pts/2    Z      0:00 [myspin] <defunct>
+18876 pts/2    R    403:30 ./shell/tsh -p
+18878 pts/2    Z      0:00 [myspin] <defunct>
+18925 pts/2    R    398:42 ./shell/tsh -p
+18927 pts/2    Z      0:00 [myspin] <defunct>
+19002 pts/2    R    398:19 ./shell/tsh -p
+19004 pts/2    Z      0:00 [myspin] <defunct>
+19070 pts/2    R    391:20 ./shell/tsh -p
+19072 pts/2    Z      0:00 [myspin] <defunct>
+19109 pts/2    R    387:09 ./shell/tsh -p
+19111 pts/2    Z      0:00 [myspin] <defunct>
+19133 pts/2    R    382:43 ./shell/tsh -p
+19135 pts/2    Z      0:00 [myspin] <defunct>
+19158 pts/2    R    383:28 ./shell/tsh -p
+19160 pts/2    Z      0:00 [myspin] <defunct>
+19183 pts/2    R    386:31 ./shell/tsh -p
+19185 pts/2    Z      0:00 [myspin] <defunct>
+26592 pts/2    R    187:19 ./tsh -p
+26594 pts/2    Z      0:00 [myspin] <defunct>
+26642 pts/2    R    181:23 ./tsh -p
+26644 pts/2    Z      0:00 [myspin] <defunct>
+26665 pts/2    R    187:24 ./tsh -p
+26667 pts/2    Z      0:00 [myspin] <defunct>
+26692 pts/2    R    188:30 ./tsh -p
+26694 pts/2    Z      0:00 [myspin] <defunct>
+26716 pts/2    R    182:06 ./tsh -p
+26718 pts/2    Z      0:00 [myspin] <defunct>
+26741 pts/2    R    184:42 ./tsh -p
+26743 pts/2    Z      0:00 [myspin] <defunct>
+26771 pts/2    R    182:02 ./tsh -p
+26773 pts/2    Z      0:00 [myspin] <defunct>
+26801 pts/2    R    184:25 ./tsh -p
+26803 pts/2    Z      0:00 [myspin] <defunct>
+26813 pts/2    R    185:50 ./tsh -p
+26815 pts/2    Z      0:00 [myspin] <defunct>
+26824 pts/2    R    179:57 ./tsh -p
+26826 pts/2    Z      0:00 [myspin] <defunct>
+26850 pts/2    R    182:47 ./tsh -p
+26852 pts/2    Z      0:00 [myspin] <defunct>
+26873 pts/2    R    184:21 ./tsh -p
+26875 pts/2    Z      0:00 [myspin] <defunct>
+26921 pts/2    R    184:03 ./tsh -p
+26923 pts/2    Z      0:00 [myspin] <defunct>
+26983 pts/2    R    177:25 ./tsh -p
+26985 pts/2    Z      0:00 [myspin] <defunct>
+27032 pts/2    R    180:33 ./tsh -p
+27034 pts/2    Z      0:00 [myspin] <defunct>
+27070 pts/2    R    182:44 ./tsh -p
+27072 pts/2    Z      0:00 [myspin] <defunct>
+27093 pts/2    R    184:49 ./tsh -p
+27095 pts/2    Z      0:00 [myspin] <defunct>
+27441 pts/8    Ss+    0:00 /bin/sh -c export LLVM_SYMBOLIZER_PATH='D:\Clion\CLion 2022.2.1\bin\clang\win\llvm-symbolizer.exe' && /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics '-header-extensions=h;h;cuh;'
+27442 pts/8    Sl+    6:44 /tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba/clangd --clion-mode=clion-main -update-debounce=0 -index=false -include-ineligible-results -clang-tidy=0 -resource-dir=/tmp/clangdb0cfdd362993cac18bd9659edbb6b103229ad6ba -keep-asts=10 -recovery-ast -ranking-model=heuristics -header-extensions=h;h;cuh;
+27585 pts/2    R    156:30 ./tsh -p
+27587 pts/2    Z      0:00 [myspin] <defunct>
+27734 pts/2    R    161:03 ./tsh -p
+27736 pts/2    Z      0:00 [myspin] <defunct>
+27765 pts/2    R    160:51 ./tsh -p
+27767 pts/2    Z      0:00 [myspin] <defunct>
+27796 pts/2    R    159:45 ./tsh -p
+27798 pts/2    Z      0:00 [myspin] <defunct>
+27859 pts/2    R    159:25 ./tsh -p
+27861 pts/2    Z      0:00 [myspin] <defunct>
+27926 pts/2    R    157:59 ./tsh -p
+27980 pts/2    R    155:46 ./tsh -p
+27982 pts/2    Z      0:00 [myspin] <defunct>
+28009 pts/2    R    157:00 ./tsh -p
+28036 pts/2    R    149:57 ./tsh -p
+28063 pts/2    R    153:41 ./tsh -p
+28065 pts/2    Z      0:00 [myspin] <defunct>
+28074 pts/2    R    157:02 ./tsh -p
+28076 pts/2    Z      0:00 [myspin] <defunct>
+28085 pts/2    R    157:27 ./tsh -p
+28087 pts/2    Z      0:00 [myspin] <defunct>
+28147 pts/2    R    148:47 ./tsh -p
+28176 pts/2    R    155:17 ./tsh -p
+28178 pts/2    Z      0:00 [myspin] <defunct>
+28820 pts/2    S      0:00 ./tsh -p
+28821 pts/2    Z      0:00 [echo] <defunct>
+30295 pts/1    Ss+    0:00 sh -c "$VSCODE_WSL_EXT_LOCATION/scripts/wslServer.sh" d045a5eda657f4d7b676dedbfa7aab8207f8a075 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30296 pts/1    S+     0:00 sh /mnt/c/Users/will/.vscode/extensions/ms-vscode-remote.remote-wsl-0.72.0/scripts/wslServer.sh d045a5eda657f4d7b676dedbfa7aab8207f8a075 stable code-server .vscode-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30322 pts/1    S+     0:00 sh /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/bin/code-server --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30326 pts/1    Sl+    0:04 /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/node /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/out/server-main.js --host=127.0.0.1 --port=0 --connection-token=1426276436-584322586-3676993217-1520491174 --use-host-proxy --without-browser-env-var --disable-websocket-compression --accept-server-license-terms --telemetry-level=all
+30337 pts/1    Sl+    0:02 /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/node /root/.vscode-server/bin/d045a5eda657f4d7b676dedbfa7aab8207f8a075/out/bootstrap-fork --type=ptyHost --logsPath /root/.vscode-server/data/logs/20221123T171632
+#
+# trace14.txt - Simple error handling
+#
+tsh> ./bogus
+./bogus: Command not found
+tsh> ./myspin 4 &
+[1] (7044) ./myspin 4 &
+tsh> fg
+fg command requires PID or %jobid argument
+tsh> bg
+bg command requires PID or %jobid argument
+tsh> fg a
+fg: argument must be a PID or %jobid
+tsh> bg a
+bg: argument must be a PID or %jobid
+tsh> fg 9999999
+(9999999): No such process
+tsh> bg 9999999
+(9999999): No such process
+tsh> fg %2
+%2: No such job
+tsh> fg %1
+Job [1] (7044) stopped by signal 20
+tsh> bg %2
+%2: No such job
+tsh> bg %1
+[1] (7044) ./myspin 4 &
+tsh> jobs
+[1] (7044) Running ./myspin 4 &
+#
+# trace15.txt - Putting it all together
+#
+tsh> ./bogus
+./bogus: Command not found
+tsh> ./myspin 10
+Job [1] (7079) terminated by signal 2
+tsh> ./myspin 3 &
+[1] (7081) ./myspin 3 &
+tsh> ./myspin 4 &
+[2] (7083) ./myspin 4 &
+tsh> jobs
+[1] (7081) Running ./myspin 3 &
+[2] (7083) Running ./myspin 4 &
+tsh> fg %1
+Job [1] (7081) stopped by signal 20
+tsh> jobs
+[1] (7081) Stopped ./myspin 3 &
+[2] (7083) Running ./myspin 4 &
+tsh> bg %3
+%3: No such job
+tsh> bg %1
+[1] (7081) ./myspin 3 &
+tsh> jobs
+[1] (7081) Running ./myspin 3 &
+[2] (7083) Running ./myspin 4 &
+tsh> fg %1
+tsh> quit
+#
+# trace16.txt - Tests whether the shell can handle SIGTSTP and SIGINT
+#     signals that come from other processes instead of the terminal.
+#
+tsh> ./mystop 2
+Job [1] (7102) stopped by signal 20
+tsh> jobs
+[1] (7102) Stopped ./mystop 2
+tsh> ./myint 2
+Job [2] (7105) terminated by signal 2
