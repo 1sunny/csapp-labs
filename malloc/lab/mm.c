@@ -1,39 +1,11 @@
-/*
- * mm-naive.c - The fastest, least memory-efficient malloc package.
- * 
- * In this naive approach, a block is allocated by simply incrementing
- * the brk pointer.  A block is pure payload. There are no headers or
- * footers.  Blocks are never coalesced or reused. Realloc is
- * implemented directly using mm_malloc and mm_free.
- *
- * NOTE TO STUDENTS: Replace this header comment with your own header
- * comment that gives a high level description of your solution.
- */
 #include <stdio.h>
-#include <stdlib.h>
 #include <assert.h>
-#include <unistd.h>
 #include <string.h>
 
 #include "mm.h"
 #include "memlib.h"
 
-/*********************************************************
- * NOTE TO STUDENTS: Before you do anything else, please
- * provide your team information in the following struct.
- ********************************************************/
-team_t team = {
-        /* Team name */
-        "sunny",
-        /* First member's full name */
-        "sunny",
-        /* First member's email address */
-        "sunny@cs.cmu.edu",
-        /* Second member's full name (leave blank if none) */
-        "",
-        /* Second member's email address (leave blank if none) */
-        ""
-};
+team_t team = {"sunny", "sunny", "sunny@cs.cmu.edu", "", ""};
 
 /* single word (4) or double word (8) alignment */
 #define ALIGNMENT 8
@@ -113,17 +85,25 @@ int MAX_SIZE(int x) {
 #define MAX_SIZE(x) (1<<(x))
 #endif
 
-
 static char *heap_start;
 static char *heap[N];
 
-int U(size_t size) {
-  for (int i = 0; i < N; i++) {
-    if ((1 << i) >= size) {
-      return i;
-    }
+/* {1},{2},{3,4},{5-8},...,{1025-2048} */
+size_t U(size_t size) {
+  assert(size);
+  size_t n = size - 1;
+  n |= n >> 1;
+  n |= n >> 2;
+  n |= n >> 4;
+  n |= n >> 8;
+  n |= n >> 16;
+  // n |= n >> 32; /* -m32 */
+  n++;
+  size_t u = 0;
+  while (!(n >> u & 1)) {
+    u++;
   }
-  assert(0);
+  return u;
 }
 
 /*
@@ -136,6 +116,7 @@ int mm_init(void) {
   PUT(heap_start, 0);
   PUT(heap_start + (1 * WSIZE), PACK(4 * WSIZE, 1));
   PUT(heap_start + (4 * WSIZE), PACK(4 * WSIZE, 1));
+  /* epilogue */
   PUT(heap_start + (5 * WSIZE), PACK(0, 1));
   for (int i = 0; i < N; ++i) {
     void *tmp;
@@ -166,7 +147,7 @@ void *find_fit(size_t size) {
   }
   return NULL;
 }
-
+/* for debug */
 void print_free() {
   for (int i = 0; i < N; i++) {
     unsigned int now = GET(SUCC(heap[i]));
@@ -238,7 +219,7 @@ static void *extend_heap(size_t words) {
   size = (words % 2) ? (words + 1) * WSIZE : words * WSIZE;
   if ((long) (bp = mem_sbrk(size)) == -1)
     return NULL;
-  // bp += DSIZE + WSIZE;
+  // bp += DSIZE + WSIZE; /* fix bug */
   bp += DSIZE;
   /* free header & pred & succ & footer */
   PUT(HDRP(bp), PACK(size, 0));
