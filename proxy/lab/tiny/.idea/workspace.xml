@@ -8,8 +8,9 @@
 }</component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="lab" targetName="handin" />
-      <config projectName="lab" targetName="mdriver" />
+      <config projectName="tiny" targetName="cgi" />
+      <config projectName="tiny" targetName="all" />
+      <config projectName="tiny" targetName="tiny" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -18,7 +19,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03e8d8cb-5341-48f7-87bc-1023bfbce7d4" name="Changes" comment="" />
+    <list default="true" id="4c4e1eaf-fa36-448a-9e04-773038705351" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,20 +30,23 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="n5uetysa" />
+  </component>
   <component name="MakefileLocalSettings">
     <option name="availableProjects">
       <map>
         <entry>
           <key>
             <ExternalProjectPojo>
-              <option name="name" value="lab" />
+              <option name="name" value="tiny" />
               <option name="path" value="$PROJECT_DIR$" />
             </ExternalProjectPojo>
           </key>
           <value>
             <list>
               <ExternalProjectPojo>
-                <option name="name" value="lab" />
+                <option name="name" value="tiny" />
                 <option name="path" value="$PROJECT_DIR$" />
               </ExternalProjectPojo>
             </list>
@@ -61,38 +65,46 @@
     <option name="majorVersion" value="2022" />
     <option name="minorVersion" value="2.1" />
   </component>
-  <component name="ProjectId" id="2ID5EGcI7bWF7IuzG3lSsRLnlga" />
+  <component name="ProjectId" id="2MrLae6vGE4K4XmpAKvboX7D2hZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "//wsl$/Ubuntu/my/clion/Test",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CPPToolchains",
-    "two.files.diff.last.used.file": "//wsl$/Ubuntu/my/csapp/malloc/lab/traces/realloc.rep"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu/my/csapp/proxy/lab/tiny&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Makefile Application.mdriver">
-    <configuration name="handin" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab" TARGET_NAME="handin" CONFIG_NAME="handin" version="1">
+}</component>
+  <component name="RunManager" selected="Makefile Application.tiny">
+    <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="tiny" TARGET_NAME="all" CONFIG_NAME="all" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="mdriver" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="-t ./traces -v" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab" TARGET_NAME="mdriver" CONFIG_NAME="mdriver" version="1" RUN_PATH="$PROJECT_DIR$/mdriver">
+    <configuration name="cgi" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="tiny" TARGET_NAME="cgi" CONFIG_NAME="cgi" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="tiny" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="12345" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="tiny" TARGET_NAME="tiny" CONFIG_NAME="tiny" version="1" RUN_PATH="$PROJECT_DIR$/tiny">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Makefile Application.handin" />
-      <item itemvalue="Makefile Application.mdriver" />
+      <item itemvalue="Makefile Application.all" />
+      <item itemvalue="Makefile Application.cgi" />
+      <item itemvalue="Makefile Application.tiny" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -103,9 +115,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/mdriver.c</url>
-          <line>602</line>
-          <option name="timeStamp" value="30" />
+          <url>file://$PROJECT_DIR$/tiny.c</url>
+          <line>63</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
