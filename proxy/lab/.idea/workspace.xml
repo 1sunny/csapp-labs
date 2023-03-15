@@ -77,7 +77,7 @@
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu/my/csapp/proxy/lab/tiny&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl$/Ubuntu/my/csapp/proxy/lab&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;CPPToolchains&quot;,
     &quot;two.files.diff.last.used.file&quot;: &quot;//wsl$/Ubuntu/my/csapp/proxy/lab/csapp.h&quot;
@@ -85,16 +85,12 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="\\wsl$\Ubuntu\my\csapp\proxy\lab" />
       <recent name="\\wsl$\Ubuntu\my\csapp\proxy\lab\tiny" />
       <recent name="\\wsl$\Ubuntu\my\csapp\proxy\lab\tiny\cgi-bin" />
     </key>
   </component>
   <component name="RunManager" selected="Makefile Application.proxy">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/proxy">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -108,6 +104,11 @@
     <configuration name="proxy" type="CLionNativeAppRunConfigurationType" PROGRAM_PARAMS="12344" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab" TARGET_NAME="proxy" CONFIG_NAME="proxy" version="1" RUN_PATH="$PROJECT_DIR$/proxy">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="tiny" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">

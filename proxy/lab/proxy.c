@@ -1,5 +1,6 @@
 #include "csapp.h"
 #include "sbuf.h"
+#include "lru.h"
 #include <stdio.h>
 
 #define NTHREADS 4
@@ -14,11 +15,12 @@ static const char *user_agent_hdr =
         "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20120305 "
         "Firefox/10.0.3\r\n";
 
+sbuf_t sbuf;
+LRUCache* lru;
+
 void doit(int fd);
 
 void clienterror(int fd, char *cause, char *errnum, char *shortmsg, char *longmsg);
-
-sbuf_t sbuf;
 
 void *thread(void *vargp) {
   Pthread_detach(pthread_self());
@@ -31,7 +33,7 @@ void *thread(void *vargp) {
 
 int main(int argc, char **argv) {
   int listenfd;
-  char hostname[MAXLINE], port[MAXLINE];
+  // char hostname[MAXLINE], port[MAXLINE];
   socklen_t clientlen;
   struct sockaddr_storage clientaddr;
   pthread_t tid;
@@ -41,13 +43,14 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  listenfd = Open_listenfd(argv[1]);
-
   sbuf_init(&sbuf, SBUFSIZE);
   for (int i = 0; i < NTHREADS; ++i) {
     Pthread_create(&tid, NULL, thread, NULL);
   }
-
+  
+  lru = lru_init(MAX_CACHE_SIZE / MAX_OBJECT_SIZE);
+  
+  listenfd = Open_listenfd(argv[1]);
   while (1) {
     clientlen = sizeof(clientaddr);
     int connfd = Accept(listenfd, (SA *) &clientaddr, &clientlen);
@@ -110,6 +113,13 @@ void doit(int fd) {
     return;
   }
   sscanf(buf, "%s %s %s", method, url, version);
+  /* grab from cache */
+  fprintf(stderr, "url: %s\n", url);
+  cacheData *data = lru_get(lru, url);
+  if(data){
+    Rio_writen(fd, data->buf, data->len);
+    return;
+  }
   if (strcasecmp(method, "GET") == 0) {
     if (parseUrl(url, uri, hostname, port) < 0) {
       clienterror(fd, "", "500", "", "parseUrl Error");
@@ -160,10 +170,22 @@ void doit(int fd) {
       Rio_writen(clientfd, buf, strlen(buf));
     }
     Rio_writen(clientfd, "\r\n", 2);
-    // send to client
+    // receive from server and send to client
     ssize_t n;
+    cacheData* rev_data = (cacheData*) Malloc(sizeof(cacheData));
     while ((n = Rio_readlineb(&client_rio, buf, MAXLINE)) && n > 0) {
       Rio_writen(fd, buf, n);
+      // try to cache
+      if (rev_data->len + n > MAX_OBJECT_SIZE){
+        Free(rev_data);
+        rev_data = NULL;
+      }else{
+        strncpy(rev_data->buf + rev_data->len, buf, n);
+        rev_data->len += n;
+      }
+    }
+    if (rev_data){
+      lru_put(lru, url, rev_data);
     }
     Close(clientfd);
   } else {
