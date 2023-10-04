@@ -1,2 +1,6 @@
 *.o
 *.exe
+*/*/.idea/
+csapp-book/
+**/*.zip
+**/.idea/
